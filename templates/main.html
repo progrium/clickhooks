@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if user %}
+<p>These are your ClickHooks:<p>
+  <dl>
+    {% for hook in hooks %}
+    <dt><a href="{{ hook }}">{{ hook }}</a>  <form style="display:inline;" action="/" method="post"><input type="hidden" name="name" value="{{ hook.name }}" /><input type="submit" value="Delete" /></form></dt>
+    <dd> &rArr; {{ hook.hook_url }} </dd>
+    <dd> &lfloor; {{ hook.redirect_url }} </dd>
+    {% endfor %}
+  </dl>
+  <form action="/" method="post">
+    Redirect URL: <input type="text" name="redirect_url" /><br />
+    Callback URL: <input type="text" name="hook_url" /><br /> 
+    <input type="submit" value="Create ClickHook" />
+    </form>
+  
+  
+{% else %}
+  <p>ClickHooks is like a URL shortener service, except its purpose is to provide you with a callback via HTTP POST (aka <a href="http://webhooks.org">webhooks</a>) when people go to your link. This should really be a feature of something like <a href="http://feedback.tr.im/pages/7238-tr-im/suggestions/250390-add-a-clickthrough-callback-url">tr.im</a>, but apparently they don't know what's up.</p>
+  <h2 align="center"><a href="{{ login_url }}">Login</a></h2>
+{% endif %}
+{% endblock %}
