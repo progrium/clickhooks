@@ -38,7 +38,7 @@ class RedirectHandler(webapp.RequestHandler):
         name = self.request.path.replace('/', '')
         hook = ClickHook.all().filter('name =', name).get()
         params = {'url': hook.redirect_url, '_url': hook.hook_url}
-        urlfetch.fetch(url='http://hookah.webhooks.org', payload=urllib.urlencode(params), method='POST')
+        urlfetch.fetch(url='http://hookah.progrium.com/dispatch', payload=urllib.urlencode(params), method='POST')
         self.redirect(hook.redirect_url)
 
 class ClickHook(db.Model):
